@@ -6,7 +6,7 @@ Quotation API
 
 ### OAS
 
-This api use OAS and it spec can be visualized here: [OAS](app\public\openapi.json).
+This api use OAS and it spec can be visualized here: [OAS](https://github.com/jmsilvadev/quotation-api/blob/master/app/public/openapi.json).
 
 ### User History
 
@@ -64,7 +64,7 @@ make composer.require pac=name-package
 
 ### Code Quality
 
-Metrics can be visualized here: [Metrics](app\tests\Reports\metric_results\index.html).
+Metrics can be visualized here: [Metrics](https://github.com/jmsilvadev/quotation-api/tree/master/app/tests/Reports/metrics_results).
 
 PHP Metrics:
 
@@ -92,7 +92,7 @@ make php.md
 
 ### Tests
 
-Coverage can be visualized here: [Coverage](app\tests\Reports\coverage\index.html).
+Coverage can be visualized here: [Coverage](https://github.com/jmsilvadev/quotation-api/tree/master/app/tests/Reports/coverage).
 
 Run all tests suite
 
