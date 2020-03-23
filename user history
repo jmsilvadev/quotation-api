@@ -1,0 +1,12 @@
+User History
+
+AS an User
+I WANT TO be send a request using verb POST to /quotes endpoint with the body: age, postcode, regNo.
+So that i can receive a response with: id, policyNumber, age, postcode, regNo, abiCode, premium.
+
+Notes:
+- The vehicle registration number should be checked in a third API to receive a valid ABI Code.
+- After receive the hit, the API should look up the base premium to find the rating factors to apply for age, postcode area and ABI code(assume a rating factor of 1 if the value is not in the database)
+- The value of premium must be multiplied by each rating factor in turn to obtain a premuim.
+- All the quotes details should be saved in the database.
+

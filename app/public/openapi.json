@@ -1,0 +1,203 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Quotation API",
+      "version": "1.0.0"
+    },
+    "tags": [
+      {
+        "name": "quotes",
+        "description": "Quotation"
+      }
+    ],
+    "paths": {
+      "/quotes": {
+        "post": {
+          "tags": [
+            "Quotes"
+          ],
+          "description": "Generate a quotation.",
+          "requestBody": {
+            "description": "Mandatory fields: age, regNo, postcode and  policyNumber",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quote"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Quote"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "409": {
+              "description": "Error with sent parameters",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "content": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ErrorModel"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/quotes/{id}": {
+        "get": {
+          "tags": [
+            "Quotes"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "List specific quote",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "content": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Quote"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "409": {
+              "description": "Error with sent parameters",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "content": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ErrorModel"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/": {
+        "get": {
+          "tags": [
+            "Information"
+          ],
+          "responses": {
+            "201": {
+              "description": "Health Check"
+            }
+          }
+        }
+      },
+      "/oas": {
+        "get": {
+          "tags": [
+            "Information"
+          ],
+          "responses": {
+            "201": {
+              "description": "OAS Spec"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Quote": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Quote"
+            },
+            {
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "format": "unsigned"
+                },
+                "age": {
+                  "type": "integer",
+                  "format": "unsigned"
+                },
+                "policyNumber": {
+                  "type": "string"
+                },
+                "postcode": {
+                  "type": "string"
+                },
+                "regNo": {
+                  "type": "string"
+                },
+                "abiCode": {
+                  "type": "string"
+                },
+                "premium": {
+                  "type": "string",
+                  "format": "decimal"
+                }
+              }
+            }
+          ]
+        },
+        "ErrorModel": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ErrorModel"
+            },
+            {
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }

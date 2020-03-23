@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  app:
+    build: ./
+    environment:
+      MYSQL_HOST: db
+      WAIT_HOSTS: db:3306
+      WAIT_HOSTS_TIMEOUT: 120
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      - $PWD/app:/var/www/html
+    ports:
+      - 8080:8080
+  db:
+    container_name: db
+    image: mysql:8.0
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+        MYSQL_DATABASE: database
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_USER: user
+        MYSQL_PASSWORD: password
+volumes:
+  db_data:
