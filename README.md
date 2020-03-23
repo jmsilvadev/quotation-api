@@ -1,12 +1,8 @@
 # Quotation
 
-Quotation API
+Quotation API: ABI Quotation API developed using Symfony 4.3
 
-## Usage
-
-### OAS
-
-This api use OAS and it spec can be visualized here: [OAS](https://github.com/jmsilvadev/quotation-api/blob/master/app/public/openapi.json).
+## Motivation
 
 ### User History
 
@@ -23,6 +19,11 @@ Notes:
 - The value of premium must be multiplied by each rating factor in turn to obtain a premuim.
 - All the quotes details should be saved in the database.
 ```
+
+## OAS
+
+This api use OAS and it spec can be visualized here: [OAS](https://github.com/jmsilvadev/quotation-api/blob/master/app/public/openapi.json).
+
 
 ## Development
 
@@ -64,7 +65,8 @@ make composer.require pac=name-package
 
 ### Code Quality
 
-Metrics can be visualized here: [Metrics](https://github.com/jmsilvadev/quotation-api/tree/master/app/tests/Reports/metrics_results).
+Last Metrics:
+![PHP Metrics](https://github.com/jmsilvadev/person_notification/blob/master/metrics.png)
 
 PHP Metrics:
 
@@ -92,7 +94,8 @@ make php.md
 
 ### Tests
 
-Coverage can be visualized here: [Coverage](https://github.com/jmsilvadev/quotation-api/tree/master/app/tests/Reports/coverage).
+Last Coverage: 
+![Coverage](https://github.com/jmsilvadev/person_notification/blob/master/coverage.png) 
 
 Run all tests suite
 
