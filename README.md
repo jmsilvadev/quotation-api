@@ -66,7 +66,7 @@ make composer.require pac=name-package
 ### Code Quality
 
 Last Metrics:
-![PHP Metrics](https://github.com/jmsilvadev/person_notification/blob/master/metrics.png)
+![PHP Metrics](https://github.com/jmsilvadev/quotation-api/blob/master/metrics.png)
 
 PHP Metrics:
 
@@ -95,7 +95,7 @@ make php.md
 ### Tests
 
 Last Coverage: 
-![Coverage](https://github.com/jmsilvadev/person_notification/blob/master/coverage.png) 
+![Coverage](https://github.com/jmsilvadev/quotation-api/blob/master/coverage.png) 
 
 Run all tests suite
 
