@@ -32,7 +32,7 @@ class GetQuotesController extends AbstractController
         }
 
         return new RestJsonResponse(
-            $response,
+            $response
         );
     }
 }

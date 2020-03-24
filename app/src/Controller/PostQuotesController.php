@@ -28,30 +28,17 @@ class PostQuotesController extends AbstractController
 {
     public function __invoke(QuotesDTO $quotesDTO, ValidatorInterface $validator): Response
     {
-        //DIC to inject repositories in in the service
-        $containerBuilder = new ContainerBuilder();
-        $repositoryAbiCode = $this->getDoctrine()->getRepository(AbiCodeRating::class);
-        $repositoryAgeRating = $this->getDoctrine()->getRepository(AgeRating::class);
-        $repositoryPostcodeRating = $this->getDoctrine()->getRepository(PostcodeRating::class);
-        $repositoryBasePremium = $this->getDoctrine()->getRepository(BasePremium::class);
-        $containerBuilder->set('AbiCodeRating', $repositoryAbiCode);
-        $containerBuilder->set('AgeRating', $repositoryAgeRating);
-        $containerBuilder->set('PostcodeRating', $repositoryPostcodeRating);
-        $containerBuilder->set('BasePremium', $repositoryBasePremium);
+        $containerBuilder = $this->diContainer();
 
-        //Service to generate a quotation and persist in DTO
         $quoteService = new QuotationService($containerBuilder, $quotesDTO);
         $quotesDTO = $quoteService->getQuotation();
 
-        //Validations in the DTO
         $isNotValid = $this->validation($quotesDTO, $validator);
         if ($isNotValid) {
             return $isNotValid;
         }
 
-        //Save data
-        $entityManager = $this->getDoctrine()->getManager();
-        $quote = $this->saveData($entityManager, $quotesDTO);
+        $quote = $this->saveData($quotesDTO);
 
         return new RestJsonResponse(
             [
@@ -87,8 +74,9 @@ class PostQuotesController extends AbstractController
         return [];
     }
 
-    private function saveData($entityManager, QuotesDTO $quotesDTO): Quote
+    private function saveData(QuotesDTO $quotesDTO): Quote
     {
+        $entityManager = $this->getDoctrine()->getManager();
         $quote = new Quote();
         $quote->setPolicyNumber($quotesDTO->getPolicyNumber());
         $quote->setAge($quotesDTO->getAge());
@@ -100,5 +88,20 @@ class PostQuotesController extends AbstractController
         $entityManager->flush();
 
         return $quote;
+    }
+
+    private function diContainer(): ContainerBuilder
+    {
+        $containerBuilder = new ContainerBuilder();
+        $repositoryAbiCode = $this->getDoctrine()->getRepository(AbiCodeRating::class);
+        $repositoryAgeRating = $this->getDoctrine()->getRepository(AgeRating::class);
+        $repositoryPostcodeRating = $this->getDoctrine()->getRepository(PostcodeRating::class);
+        $repositoryBasePremium = $this->getDoctrine()->getRepository(BasePremium::class);
+        $containerBuilder->set('AbiCodeRating', $repositoryAbiCode);
+        $containerBuilder->set('AgeRating', $repositoryAgeRating);
+        $containerBuilder->set('PostcodeRating', $repositoryPostcodeRating);
+        $containerBuilder->set('BasePremium', $repositoryBasePremium);
+
+        return $containerBuilder;
     }
 }
