@@ -44,6 +44,31 @@ class PostQuotesController extends AbstractController
         $quotesDTO = $quoteService->getQuotation();
 
         //Validations in the DTO
+        $isNotValid = $this->validation($quotesDTO, $validator);
+        if ($isNotValid) {
+            return $isNotValid;
+        }
+
+        //Save data
+        $entityManager = $this->getDoctrine()->getManager();
+        $quote = $this->saveData($entityManager, $quotesDTO);
+
+        return new RestJsonResponse(
+            [
+                'id' => $quote->getId(),
+                'policyNumber' => $quote->getPolicyNumber(),
+                'age' => $quote->getAge(),
+                'postcode' => $quote->getPostcode(),
+                'regNo' => $quote->getRegNo(),
+                'abiCode' => $quote->getAbiCode(),
+                'premium' => number_format($quote->getPremium(), 2),
+            ],
+            Response::HTTP_CREATED
+        );
+    }
+
+    private function validation(QuotesDTO $quotesDTO, ValidatorInterface $validator)
+    {
         $validator = $validator;
         $errors = $validator->validate($quotesDTO);
         if (count($errors) > 0) {
@@ -60,8 +85,11 @@ class PostQuotesController extends AbstractController
             );
         }
 
-        //Save data
-        $entityManager = $this->getDoctrine()->getManager();
+        return [];
+    }
+
+    private function saveData($entityManager, QuotesDTO $quotesDTO): Quote
+    {
         $quote = new Quote();
         $quote->setPolicyNumber($quotesDTO->getPolicyNumber());
         $quote->setAge($quotesDTO->getAge());
@@ -72,17 +100,6 @@ class PostQuotesController extends AbstractController
         $entityManager->persist($quote);
         $entityManager->flush();
 
-        return new RestJsonResponse(
-            [
-                'id' => $quote->getId(),
-                'policyNumber' => $quote->getPolicyNumber(),
-                'age' => $quote->getAge(),
-                'postcode' => $quote->getPostcode(),
-                'regNo' => $quote->getRegNo(),
-                'abiCode' => $quote->getAbiCode(),
-                'premium' => number_format($quote->getPremium(), 2),
-            ],
-            Response::HTTP_CREATED
-        );
+        return $quote;
     }
 }
