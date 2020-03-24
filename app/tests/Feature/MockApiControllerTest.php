@@ -36,7 +36,7 @@ class MockApiControllerTest extends WebTestCase
         );
         
         $mock = json_decode($this->client->getResponse()->getContent());
-        $this->assertEquals('22529902', $mock[0]);
+        $this->assertEquals('22529902', $mock->data[0]);
     }
     
 
@@ -62,6 +62,6 @@ class MockApiControllerTest extends WebTestCase
         );
         
         $mock = json_decode($this->client->getResponse()->getContent());
-        $this->assertEquals('Not Found', $mock[0]);
+        $this->assertEquals('Not Found', $mock->data[0]);
     }
 }

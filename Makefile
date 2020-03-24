@@ -52,7 +52,7 @@ test.coverage: ## Check project test coverage
 php.metrics: ## Run php metrics & open metrics web
 	$(DOCKER_C) exec $(APP_NAME) php \
 	$(VENDOR_METRICS) \
-	--report-html=$(OUTPUT_METRICS) ./src 
+	--report-html=$(OUTPUT_METRICS) ./src
 	make php.metrics.open
 
 php.metrics.open:

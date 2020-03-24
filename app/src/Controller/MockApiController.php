@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+use App\Responses\RestJsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class MockApiController extends AbstractController
 {
-    public function __invoke(string $regNo): JsonResponse
+    public function __invoke(string $regNo): RestJsonResponse
     {
         $abiCodes = [];
         $abiCodes['regno-1'] = "22529902";
@@ -23,14 +23,11 @@ class MockApiController extends AbstractController
         }
         $response = isset($abiCodes[$regNo]) ? $abiCodes[$regNo] : 'Not Found';
 
-        return new JsonResponse(
+        return new RestJsonResponse(
             [
                 $response
             ],
-            Response::HTTP_OK,
-            [
-                'Content-Type' => 'application/json; charset=UTF-8'
-            ]
+            Response::HTTP_OK
         );
     }
 }

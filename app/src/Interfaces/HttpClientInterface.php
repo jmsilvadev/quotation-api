@@ -1,6 +1,6 @@
 <?php
 
-namespace App\HttpClient\Interfaces;
+namespace App\Interfaces;
 
 interface HttpClientInterface
 {

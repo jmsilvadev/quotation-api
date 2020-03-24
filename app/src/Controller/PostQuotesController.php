@@ -62,8 +62,7 @@ class PostQuotesController extends AbstractController
                 'regNo' => $quote->getRegNo(),
                 'abiCode' => $quote->getAbiCode(),
                 'premium' => number_format($quote->getPremium(), 2),
-            ],
-            Response::HTTP_CREATED
+            ]
         );
     }
 

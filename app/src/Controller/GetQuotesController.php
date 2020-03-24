@@ -33,7 +33,6 @@ class GetQuotesController extends AbstractController
 
         return new RestJsonResponse(
             $response,
-            Response::HTTP_CREATED
         );
     }
 }

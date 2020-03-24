@@ -18,8 +18,7 @@ class DefaultController extends AbstractController
             [
                 'status' => 'pass',
                 'description' => 'Quotation System'
-            ],
-            Response::HTTP_CREATED
+            ]
         );
     }
 }

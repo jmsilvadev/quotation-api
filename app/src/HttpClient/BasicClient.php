@@ -4,7 +4,7 @@ namespace App\HttpClient;
 
 use Exception;
 use Symfony\Component\HttpClient\HttpClient;
-use App\HttpClient\Interfaces\HttpClientInterface;
+use App\Interfaces\HttpClientInterface;
 
 /**
  * @SuppressWarnings(PHPMD.StaticAccess)

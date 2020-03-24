@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\DTO\QuotesDTO;
+use App\Interfaces\QuotationServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class QuotationService
+class QuotationService implements QuotationServiceInterface
 {
     private $quote;
     private $container;
@@ -27,7 +28,7 @@ class QuotationService
             : 0;
     }
 
-    public function setAbiCodePremium()
+    public function setAbiCodePremium(): void
     {
         $this->repository = $this->container->get('AbiCodeRating');
         $ratingValue = $this->repository->createQueryBuilder('t')
@@ -39,7 +40,7 @@ class QuotationService
         $this->valuePremium = $value * $this->valuePremium;
     }
 
-    public function setAgePremium()
+    public function setAgePremium(): void
     {
         $this->repository = $this->container->get('AgeRating');
         $ratingValue = $this->repository->find($this->quote->getAge());
@@ -47,7 +48,7 @@ class QuotationService
         $this->valuePremium = $value * $this->valuePremium;
     }
 
-    public function setPostcodePremium()
+    public function setPostcodePremium(): void
     {
         $this->repository = $this->container->get('PostcodeRating');
         $ratingValue = $this->repository->createQueryBuilder('t')
@@ -59,13 +60,13 @@ class QuotationService
         $this->valuePremium = $value * $this->valuePremium;
     }
 
-    public function getAbiCode(string $regNo)
+    public function getAbiCode(string $regNo): string
     {
         $serviceVehicle = new VehicleRegistrationService();
         return $serviceVehicle->getAbiCode($regNo);
     }
 
-    public function getQuotation()
+    public function getQuotation(): QuotesDTO
     {
         if (!$this->quote->getRegNo()) {
             return $this->quote;

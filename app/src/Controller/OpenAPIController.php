@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+use App\Responses\RestJsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -15,13 +15,9 @@ class OpenAPIController extends AbstractController
     public function __invoke()
     {
         $applicationSpecifics = file_get_contents(__DIR__ . '/../../public/openapi.json');
-        return new JsonResponse(
-            $applicationSpecifics,
-            Response::HTTP_OK,
-            [
-                'Content-Type' => 'application/json; charset=UTF-8'
-            ],
-            true
+        return new RestJsonResponse(
+            json_decode($applicationSpecifics, true),
+            Response::HTTP_OK
         );
     }
 }

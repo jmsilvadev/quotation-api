@@ -3,10 +3,11 @@
 namespace App\Services;
 
 use App\HttpClient\BasicClient;
+use App\Interfaces\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Response;
-use App\HttpClient\Interfaces\HttpClientInterface;
+use App\Interfaces\VehicleRegistrationServiceInterface;
 
-class VehicleRegistrationService
+class VehicleRegistrationService implements VehicleRegistrationServiceInterface
 {
     private $httpClient;
 
@@ -25,7 +26,7 @@ class VehicleRegistrationService
         
         $abiCode = '';
         if ($response['code'] == Response::HTTP_OK) {
-            $abiCode = $response['response'][0];
+            $abiCode = $response['response']['data'][0];
         }
         return $abiCode;
     }
