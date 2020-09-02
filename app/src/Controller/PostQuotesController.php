@@ -55,7 +55,7 @@ class PostQuotesController extends AbstractController
 
     private function validation(QuotesDTO $quotesDTO, ValidatorInterface $validator)
     {
-        $validator = $validator;
+        
         $errors = $validator->validate($quotesDTO);
         if (count($errors) > 0) {
             $validations = new ValidationException($errors);
